@@ -58,7 +58,11 @@ class TaskController extends Controller
 
     public function index()
     {
+        $pageTitle = 'Task List'; // Ditambahkan
         $tasks = $this->tasks;
-        return view('tasks.index', ['tasks' => $tasks]);
+        return view('tasks.index', [
+            'pageTitle' => $pageTitle, //Ditambahkan
+            'tasks' => $tasks,
+        ]);
     }
 }

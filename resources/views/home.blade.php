@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="{{ asset('style.css') }}">
-  <title>Home</title>
-</head>
+@section('pageTitle', 'Home') 
 
-<body>
+@section('main')
   <div class="container">
     <div class="main">
       <div class="task-summary-container">
@@ -27,6 +19,4 @@
       </div>
     </div>
   </div>
-</body>
-
-</html>
+@endsection
