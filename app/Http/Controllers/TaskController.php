@@ -38,6 +38,6 @@ class TaskController extends Controller
         $pageTitle = 'Edit Task';
         $tasks = Task::find($id);
 
-        return view('tasks.edit', ['pageTitle' => $pageTitle, 'task' => $task]);
+        return view('tasks.edit', ['pageTitle' => $pageTitle, 'task' => $tasks]);
     }
 }
