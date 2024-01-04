@@ -33,6 +33,29 @@ class TaskController extends Controller
         ]);
     }
 
+    // Tambahkan method store()
+    public function store(Request $request)
+    {
+        // Code untuk proses validasi
+        $request->validate(
+            [
+                'name' => 'required',
+                'due_date' => 'required',
+                'status' => 'required',
+            ],
+            $request->all()
+        );
+
+        Task::create([
+            'name' => $request->name,
+            'detail' => $request->detail,
+            'due_date' => $request->due_date,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('tasks.index');
+    }
+
     public function edit($id)
     {
         $pageTitle = 'Edit Task';
