@@ -63,4 +63,32 @@ class TaskController extends Controller
 
         return view('tasks.edit', ['pageTitle' => $pageTitle, 'task' => $tasks]);
     }
+    public function update(Request $request, $id)
+    {
+         
+        $task = Task::findOrFail($id);
+        $task->update([
+            'name' => $request->name,
+            'detail' => $request->detail,
+            'due_date' => $request->due_date,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('tasks.index');
+    }
+    public function delete($id)
+    {
+        $pageTitle = 'Delete';
+        $tasks = Task::find($id);
+
+        return view('tasks.delete', ['pageTitle' => $pageTitle, 'task' => $tasks]);
+
+    }
+    public function destroy($id)
+{
+    $task = Task::findOrFail($id);// Memperoleh task tertentu menggunakan $id
+    $task->delete();
+    // Melakukan redirect menuju tasks.index
+    return redirect()->route('tasks.index');
+}
 }
