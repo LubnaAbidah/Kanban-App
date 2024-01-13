@@ -30,19 +30,19 @@
 
       <div class="form-item">
         <label>Progress:</label>
-        <select class="form-input" data-value="{{ $task ? $task->value : old('status') }}">
+        <select class="form-input" name="status" data-value="{{ $task ? $task->value : old('status') }}">
         <option @if(old('status') == 'not_started') selected @endif value="not_started">
-            Not Started
-          </option>
-          <option @if(old('status') == 'in_progress') selected @endif value="in_progress">
-            In Progress
-          </option>
-          <option @if(old('status') == 'in_review') selected @endif value="in_review">
-            Waiting/In Review
-          </option>
-          <option @if(old('status') == 'completed') selected @endif value="completed">
-            Completed
-          </option>
+          Not Started
+        </option>
+        <option @if(old('status') == 'in_progress') selected @endif value="in_progress">
+          In Progress
+        </option>
+        <option @if(old('status') == 'in_review') selected @endif value="in_review">
+          Waiting/In Review
+        </option>
+        <option @if(old('status') == 'completed') selected @endif value="completed">
+          Completed
+        </option>
         </select>
       </div>
       <button type="submit" class="form-button">Submit</button>
