@@ -85,10 +85,31 @@ class TaskController extends Controller
 
     }
     public function destroy($id)
-{
-    $task = Task::findOrFail($id);// Memperoleh task tertentu menggunakan $id
-    $task->delete();
-    // Melakukan redirect menuju tasks.index
-    return redirect()->route('tasks.index');
-}
+    {
+        $task = Task::findOrFail($id);// Memperoleh task tertentu menggunakan $id
+        $task->delete();
+        // Melakukan redirect menuju tasks.index
+        return redirect()->route('tasks.index');
+    }
+    public function progress()
+    {
+        $title = 'Task Progress';
+
+        $tasks = Task::all();
+        $filteredTasks = $tasks->groupBy('status');
+        
+         
+        $tasks = [
+            'not_started' => $filteredTasks->get(('not_started') , []),
+            'in_progress' => $filteredTasks->get(('in_progress'), []),
+            'completed' => $filteredTasks->get(('completed'), []),
+            'in_review' => $filteredTasks->get(('in_review'), []),
+        ];
+        
+    
+         return view('tasks.progress', [
+            'pageTitle' => $title,
+            'tasks' => $tasks,
+        ]);
+    }
 }
