@@ -33,9 +33,9 @@ Route::prefix('tasks')
         Route::get('progress', 'progress')->name('progress');
         Route::patch('{id}/move', 'move')->name('move');
     });
-Route::name('auth.')
+    Route::name('auth.')
     ->controller(AuthController::class)
-    ->group(function() {
-        Route::get('signup', 'signup')->name('signupForm');
+    ->group(function () {
+        Route::get('signup', 'signupForm')->name('signupForm');
         Route::post('signup', 'signup')->name('signup');
     });
