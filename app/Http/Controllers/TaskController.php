@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 class TaskController extends Controller
 {
     private $tasks;
@@ -61,14 +62,17 @@ class TaskController extends Controller
     public function edit($id)
     {
         $pageTitle = 'Edit Task';
-        $tasks = Task::find($id);
+        $task = Task::findOrFail($id);
 
-        return view('tasks.edit', ['pageTitle' => $pageTitle, 'task' => $tasks]);
+        Gate::authorize('update', $task);
+
+        return view('tasks.edit', ['pageTitle' => $pageTitle, 'task' => $task]);
     }
     public function update(Request $request, $id)
     {
          
         $task = Task::findOrFail($id);
+        Gate::authorize('update', $task);
         $task->update([
             'name' => $request->name,
             'detail' => $request->detail,
@@ -81,14 +85,18 @@ class TaskController extends Controller
     public function delete($id)
     {
         $pageTitle = 'Delete';
-        $tasks = Task::find($id);
+        $task = Task::find($id);
 
-        return view('tasks.delete', ['pageTitle' => $pageTitle, 'task' => $tasks]);
+        Gate::authorize('update', $task);
+
+        return view('tasks.delete', ['pageTitle' => $pageTitle, 'task' => $task]);
 
     }
     public function destroy($id)
     {
         $task = Task::findOrFail($id);// Memperoleh task tertentu menggunakan $id
+        Gate::authorize('update', $task);
+        
         $task->delete();
         // Melakukan redirect menuju tasks.index
         return redirect()->route('tasks.index');
