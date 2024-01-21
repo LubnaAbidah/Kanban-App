@@ -19,7 +19,7 @@
   </div>
   <div class="@if ($leftStatus) task-progress-card-left @else task-progress-card-right @endif">
     @if ($leftStatus)
-      
+    @can('move', $task)
       <form
         action="{{ route('tasks.move', ['id' => $task->id, 'status' => $leftStatus]) }}" 
         method="POST"
@@ -28,10 +28,11 @@
         @csrf
         <button class="material-icons">chevron_left</button>
       </form>
+    @endcan
     @endif
 
     @if ($rightStatus)
-      
+    @can('move', $task)
       <form
         action="{{ route('tasks.move', ['id' => $task->id, 'status' => $rightStatus]) }}"
         method="POST"
@@ -40,6 +41,7 @@
         @csrf
         <button class="material-icons">chevron_right</button>
       </form>
+    @endcan
     @endif
   </div>
 </div>

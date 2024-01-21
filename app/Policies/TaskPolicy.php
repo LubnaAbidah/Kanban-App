@@ -17,4 +17,13 @@ class TaskPolicy
     {
         return $user->id == $task->user_id;
     }
+
+    public function move($user, $task)
+    {
+        return $user->id == $task->user_id;
+    }
+    public function completed($user, $task)
+    {
+        return $user->id == $task->user_id;
+    }
 }

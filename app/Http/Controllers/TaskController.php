@@ -85,7 +85,7 @@ class TaskController extends Controller
     public function delete($id)
     {
         $pageTitle = 'Delete';
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
         Gate::authorize('update', $task);
 
@@ -116,7 +116,6 @@ class TaskController extends Controller
             'in_review' => $filteredTasks->get(('in_review'), []),
         ];
         
-    
          return view('tasks.progress', [
             'pageTitle' => $title,
             'tasks' => $tasks,
@@ -125,7 +124,7 @@ class TaskController extends Controller
     public function move(int $id, Request $request)
     {
         $task = Task::findOrFail($id);
-
+        Gate::authorize('move', $task);
         $task->update([
             'status' => $request->status,
         ]);
@@ -135,7 +134,7 @@ class TaskController extends Controller
     public function completed(int $id, Request $request)
     {
         $task = Task::findOrFail($id);
-
+        Gate::authorize('completed', $task);
         $task->update([
             'status' => $request->status,
         ]);
