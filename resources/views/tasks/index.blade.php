@@ -49,10 +49,13 @@
           @endswitch
         </div>
         <div class="table-body-owner-name">{{ $task->user->name }}</div>
-          <div>
+          <div class="table-body-links">  
+            @can('update', $task)  
             <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
-            <!-- Tambahkan Tautan Delete -->
+            @endcan
+            @can('delete', $task)
             <a href="{{ route('tasks.delete', ['id' => $task->id]) }}">Delete</a>
+            @endcan
           </div>        
         </div>
     @endforeach
