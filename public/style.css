@@ -333,3 +333,7 @@ body {
     width: 15%;
     padding: 16px;
   }
+
+  .table-body-links {
+    width: 10%;
+  }
