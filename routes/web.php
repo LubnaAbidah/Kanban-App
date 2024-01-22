@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home'); // name ditambahkan
+Route::get('/', [TaskController::class, 'home'])
+    ->name('home')
+    ->middleware('auth');
 
 Route::prefix('tasks')
     ->name('tasks.')
@@ -38,4 +38,6 @@ Route::prefix('tasks')
     ->group(function () {
         Route::get('signup', 'signupForm')->name('signupForm');
         Route::post('signup', 'signup')->name('signup');
+        Route::get('login', 'loginForm')->name('loginForm');
+        Route::post('login', 'login')->name('login');
     });

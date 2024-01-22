@@ -8,10 +8,40 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    
+    public function loginForm()
+    {
+        $pageTitle = 'Login';
+        return view('auth.login_form', ['pageTitle' => $pageTitle]);
+    }
+    public function login(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'password' => 'required',
+            ],
+            $request->all()
+        );
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('home');
+        }
+
+        return redirect()
+            ->back()
+            ->withInput($request->only('email'))
+            ->withErrors([
+                'email' => 'The email was not found.',
+            ]);
+    }
+
     public function signupForm()
     {
-        $pageTitle = 'Signup Page';
-        return view('auth.signup_form', ['pageTitle' => $pageTitle ]);
+        $pageTitle = 'Signup';
+        return view('auth.signup_form', ['pageTitle' => $pageTitle]);
     }
 
     public function signup(Request $request)

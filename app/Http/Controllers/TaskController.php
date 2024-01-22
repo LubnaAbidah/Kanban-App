@@ -10,11 +10,6 @@ class TaskController extends Controller
 {
     private $tasks;
 
-    public function __construct()
-    {
-        
-    }
-
     public function index()
     {
         $pageTitle = 'Task List'; // Ditambahkan
