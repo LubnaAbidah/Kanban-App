@@ -23,21 +23,21 @@ class AuthController extends Controller
             ],
             $request->all()
         );
-
+    
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
             return redirect()->route('home');
         }
-
+    
         return redirect()
             ->back()
             ->withInput($request->only('email'))
             ->withErrors([
-                'email' => 'The email was not found.',
+                'email' => 'These credentials do not match our records.',
             ]);
     }
-
+    
     public function signupForm()
     {
         $pageTitle = 'Signup';
@@ -70,5 +70,10 @@ class AuthController extends Controller
         ]);
 
         return redirect()->route('home');
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('auth.login');
     }
 }

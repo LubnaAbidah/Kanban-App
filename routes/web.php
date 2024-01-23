@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthController; // Ditambahkan
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +19,16 @@ Route::get('/', [TaskController::class, 'home'])
     ->name('home')
     ->middleware('auth');
 
+Route::name('auth.')
+    ->controller(AuthController::class)
+    ->group(function () {
+        Route::get('signup', 'signupForm')->name('signupForm');
+        Route::post('signup', 'signup')->name('signup');
+        // Tambahkan route-route di bawah
+        Route::get('login', 'loginForm')->name('loginForm');
+        Route::post('login', 'login')->name('login');
+    });
+
 Route::prefix('tasks')
     ->name('tasks.')
     ->controller(TaskController::class)
@@ -33,11 +43,4 @@ Route::prefix('tasks')
         Route::get('progress', 'progress')->name('progress');
         Route::patch('{id}/move', 'move')->name('move');
     });
-    Route::name('auth.')
-    ->controller(AuthController::class)
-    ->group(function () {
-        Route::get('signup', 'signupForm')->name('signupForm');
-        Route::post('signup', 'signup')->name('signup');
-        Route::get('login', 'loginForm')->name('loginForm');
-        Route::post('login', 'login')->name('login');
-    });
+ 
